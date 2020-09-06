@@ -1,0 +1,53 @@
+body{
+  background-color: #ffffff;
+  /* padding: 20px; */
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+.section1{
+  margin: -10px;
+  margin-bottom: 0;
+  padding-top: 30px; 
+  padding-bottom: 15px; 
+  color: #ffffff;
+}
+.bgImage{
+  background-image: url('/Assets/architecture-blue-sky-buildings-290275.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.search{
+  display: flex;
+  justify-content: center;
+  
+}
+.searchBar{
+  border-radius: 50px;
+  border: none;
+  padding: 7px 14px;
+}
+.searchBar::placeholder{
+  color: #8204ff;
+}
+.searchIcon{
+  margin-left: -40px;
+}
+.textGroup1{
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  margin-bottom: -30px;
+}
+.city{
+  padding: 0 10px;
+  font-size: 30px;
+  font-weight: bold;
+}
+.country,
+.textGroup2{
+  font-size: 18px;
+  font-weight: 400;
+}
+.textGroup2{
+ 
+text-align: center;
+}
