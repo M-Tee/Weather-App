@@ -9,6 +9,7 @@ body{
   padding-top: 30px; 
   padding-bottom: 15px; 
   color: #ffffff;
+  background-color: #8204ff;;
 }
 
 .bgImage{
@@ -36,7 +37,7 @@ body{
   display: flex;
   justify-content: center;
   align-items: baseline;
-  margin-bottom: -30px;
+  margin-bottom: -20px;
 }
 .city{
   padding: 0 10px;
