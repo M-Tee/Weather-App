@@ -37,7 +37,7 @@ body{
   display: flex;
   justify-content: center;
   align-items: baseline;
-  margin-bottom: -30px;
+  margin-bottom: -20px;
 }
 .city{
   padding: 0 10px;
