@@ -49,11 +49,75 @@ body{
   font-weight: 400;
 }
 .textGroup2{
- 
 text-align: center;
 }
-@media (min-width: 400px) {
-body{
+
+.section2{
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+}
+.left{
+  padding-right: 20px;
+  text-align: right;
+}
+.degrees,
+.noun{
+  font-size: 30px;
+}
+.noun{
+  font-weight: bold;
+}
+.line{
+  background-color: #8204ff;
+  width: 7px;
+  border-radius: 20px;
+}
+
+.right{
+  padding-left: 20px;
+  font-size: 14px;
+}
+.right h2 {
+  margin-bottom: 7px;
+}
+.highlights{
+display: flex;
+}
+.values{
+  margin-left: 10px;
+}
+/* .right span {
+  display: flex;
+  justify-content: space-between;
+}
+.right span p:nth-child(2){
+  padding-left: 10px;
+} */
+.section3 {
+  display: flex;
+  justify-content:center;
+  text-align: center;
+}
+.card{
+  margin: 10px;
+}
+.hidden{
   display: none;
+}
+.innerCard{
+  background-color: #8204ff;
+  color: #ffffff;
+  padding: 10px;
+  border-radius: 20px;
+  width: 80px;
+}
+.innerCard p {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+@media (min-width: 768px) {
+.hidden{
+  display: unset;
 }
 }
