@@ -57,26 +57,43 @@ text-align: center;
   display: flex;
   justify-content: center;
 }
+.left{
+  padding-right: 20px;
+  text-align: right;
+}
+.degrees,
+.noun{
+  font-size: 30px;
+}
+.noun{
+  font-weight: bold;
+}
 .line{
   background-color: #8204ff;
   width: 7px;
   border-radius: 20px;
 }
-.left{
-  padding-right: 20px;
-  text-align: right;
-}
+
 .right{
   padding-left: 20px;
   font-size: 14px;
 }
-.right span {
+.right h2 {
+  margin-bottom: 7px;
+}
+.highlights{
+display: flex;
+}
+.values{
+  margin-left: 10px;
+}
+/* .right span {
   display: flex;
   justify-content: space-between;
 }
 .right span p:nth-child(2){
   padding-left: 10px;
-}
+} */
 @media (min-width: 400px) {
 body{
   display: none;
