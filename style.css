@@ -94,6 +94,24 @@ display: flex;
 .right span p:nth-child(2){
   padding-left: 10px;
 } */
+.section3 {
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+}
+
+.innerCard{
+  background-color: #8204ff;
+
+  color: #ffffff;
+  padding: 10px;
+  border-radius: 20px;
+  width: 80px;
+}
+.innerCard p {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
 @media (min-width: 400px) {
 body{
   display: none;
