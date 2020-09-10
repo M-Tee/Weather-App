@@ -9,8 +9,8 @@ input.addEventListener('keyup', async (input)=> {
 	await fetch(`https://spott.p.rapidapi.com/places/autocomplete?q=${typedString}&limit=10&skip=0&type=CITY&language=ar`, {
 	"method": "GET",
 	"headers": {
-		"x-rapidapi-host": "spott.p.rapidapi.com",
-		"x-rapidapi-key": "e894934359msh14a1ac1cf2e5dc7p1115b0jsn7009fce07bb0"
+		"x-rapidapi-host": "",
+		"x-rapidapi-key": " "
 	}
 })
 .then(response => {
