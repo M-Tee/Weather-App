@@ -9,7 +9,8 @@ body{
   padding-top: 30px; 
   padding-bottom: 15px; 
   color: #ffffff;
-  background-color: #8204ff;;
+  background-color: #8204ff;
+  height: 30vh;
 }
 
 .bgImage{
@@ -37,7 +38,8 @@ body{
   display: flex;
   justify-content: center;
   align-items: baseline;
-  margin-bottom: -20px;
+  margin-bottom: -10px;
+  padding-top: 25px;
 }
 .city{
   padding: 0 10px;
