@@ -22,6 +22,19 @@ input.addEventListener('keyup', async (event) => {
 
 				const country = document.querySelector('.country');
 				country.textContent = data.country.name
+	await fetch(`https://spott.p.rapidapi.com/places/autocomplete?q=${typedString}&limit=10&skip=0&type=CITY&language=ar`, {
+	"method": "GET",
+	"headers": {
+		"x-rapidapi-host": "",
+		"x-rapidapi-key": " "
+	}
+})
+.then(response => {
+	let data = response.json();
+	console.log(data.id);
+
+const country = document.querySelector('country');
+country.textContent = data.name
 
 			})
 			.catch(err => {
