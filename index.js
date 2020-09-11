@@ -16,7 +16,11 @@ input.addEventListener('keyup', async (event) => {
 				// let data = JSON.parse(response)
 				console.log(data);
 
-				
+				const city = document.querySelector('.city');
+				city.textContent = `${data.name},`
+
+				const country = document.querySelector('.country');
+				country.textContent = data.country.name
 
 			})
 			.catch(err => {
