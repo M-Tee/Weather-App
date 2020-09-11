@@ -2,6 +2,7 @@
 const input = document.getElementById("input");
 input.addEventListener('keyup', async (event) => {
 	event.preventDefault();
+	if (event.keyCode === 13) {
 		const typedString = document.getElementById("input").value;
 	
 		await axios(`https://spott.p.rapidapi.com/places?type=CITY&limit=1&language=ar&skip=0&q=${typedString}`, {
@@ -26,6 +27,7 @@ input.addEventListener('keyup', async (event) => {
 			.catch(err => {
 				console.log(err);
 			});
+	}
 })
 
 // https://spott.p.rapidapi.com/places/autocomplete?q=${typedString}&limit=10&skip=0&type=CITY&language=ar
