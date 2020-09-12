@@ -10,7 +10,7 @@ body{
   padding-bottom: 15px; 
   color: #ffffff;
   background-color: #8204ff;
-  height: 30vh;
+  height: 30%;
 }
 
 .bgImage{
@@ -65,10 +65,10 @@ text-align: center;
   text-align: right;
 }
 .degrees,
-.noun{
+.weather{
   font-size: 30px;
 }
-.noun{
+.weather{
   font-weight: bold;
 }
 .line{
