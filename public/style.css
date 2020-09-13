@@ -53,6 +53,11 @@ body{
 }
 .textGroup2{
 text-align: center;
+display: flex;
+justify-content: center;
+}
+.textGroup2 p{
+  padding: 5px;
 }
 
 .section2{
