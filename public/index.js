@@ -15,7 +15,7 @@ input.addEventListener('keyup', async (event) => {
 	if (event.keyCode === 13) {
 		const typedString = document.getElementById("input").value;
 
-		await axios(`https://api.openweathermap.org/data/2.5/weather?q=${typedString}&APPID=72a730baaa2ebd7a0edabe3d09b870c2`, {
+		await axios(`https://api.openweathermap.org/data/2.5/weather?q=${typedString}&APPID=`, {
 			"method": "GET"
 		})
 			.then(response => {
