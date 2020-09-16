@@ -1,11 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#9f00a7">
+  <meta name="msapplication-TileColor" content="#9f00a7">
+  <meta name="theme-color" content="#9f00a7">
+
+
   <title>Weather App</title>
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
   <!-- First Section -->
   <section class="section1 bgImage">
@@ -18,70 +29,70 @@
     <div class="textGroup1">
       <img src="./Assets/locationMarker.svg" alt="" class="locationIcon">
       <p class="city">Nairobi,
-        <p class="country">Kenya</p>
+      <p class="country">Kenya</p>
       </p>
     </div>
-    <div class="textGroup2"> 
-      <p id ="day"> Day </p>
-      <p id ="month">Month </p>
-      <p id ="year">Year</p>
+    <div class="textGroup2">
+      <p id="date"> Day </p>
+      <p id="month">Month </p>
+      <p id="year">Year</p>
     </div>
   </section>
   <!-- Second Section  -->
   <section class="section2">
-      <div class="left">
-        <img src="./Assets/rain.svg" alt="weather">
-        <p class="degrees">15</p>
-        <p class="weather">Rainy</p>
-      </div>
-      <div class="line"></div>
-      <div class="right">
-        <h2>Highlights</h2>
-        <div class="highlights">
-          <div class="titles">
-            <p id="humidity" >Humidity</p>
-            <p id="cloudiness">Cloudiness</p>
-            <p id="windSpeed">Wind Speed</p>
-            <p id="pressure">Pressure</p>
-          </div>
-          <div class="values">
-            <p id="humidityRate"> 60%</p>
-            <p id="cloudRate"> 100%</p>
-            <p id="windSpeedRate">40km/h</p>
-            <p id="pressureRate">99.5pa</p>
-          </div>
+    <div class="left">
+      <img src="./Assets/rain.svg" alt="weather">
+      <p class="degrees">15</p>
+      <p class="weather">Rainy</p>
+    </div>
+    <div class="line"></div>
+    <div class="right">
+      <h2>Highlights</h2>
+      <div class="highlights">
+        <div class="titles">
+          <p id="humidity">Humidity</p>
+          <p id="cloudiness">Cloudiness</p>
+          <p id="windSpeed">Wind Speed</p>
+          <p id="pressure">Pressure</p>
+        </div>
+        <div class="values">
+          <p id="humidityRate"> 60%</p>
+          <p id="cloudRate"> 100%</p>
+          <p id="windSpeedRate">40km/h</p>
+          <p id="pressureRate">99.5pa</p>
         </div>
       </div>
+    </div>
   </section>
   <!-- Third Section -->
   <section class="section3">
     <div class="card">
-      <p id="nextDay">Tommorrow</p> 
-      <div class="innerCard"> 
+      <p id="nextDay">Tommorrow</p>
+      <div class="innerCard">
         <img src="./Assets/noto-v1_sun-with-face.svg" alt="">
         <p id="nextDaydegree">30°</p>
         <p id="nextforeCast">Sunny</p>
       </div>
     </div>
     <div class="card">
-      <p id="nextDay">Sartuday</p> 
-      <div class="innerCard"> 
+      <p id="nextDay2">Sartuday</p>
+      <div class="innerCard">
         <img src="./Assets/noto-v1_sun-with-face.svg" alt="">
         <p id="nextDaydegree">30°</p>
         <p id="nextforeCast">Sunny</p>
       </div>
     </div>
     <div class="card">
-      <p id="nextDay">Sunday</p> 
-      <div class="innerCard"> 
+      <p id="nextDay3">Sunday</p>
+      <div class="innerCard">
         <img src="./Assets/noto-v1_sun-with-face.svg" alt="">
         <p id="nextDaydegree">30°</p>
         <p id="nextforeCast">Sunny</p>
       </div>
     </div>
     <div class="card hidden">
-      <p id="nextDay">Monday</p> 
-      <div class="innerCard"> 
+      <p id="nextDay4">Monday</p>
+      <div class="innerCard">
         <img src="./Assets/noto-v1_sun-with-face.svg" alt="">
         <p id="nextDaydegree">30°</p>
         <p id="nextforeCast">Sunny</p>
@@ -89,24 +100,26 @@
     </div>
 
     <div class="card hidden">
-      <p id="nextDay">Tuesday</p> 
-      <div class="innerCard"> 
+      <p id="nextDay5">Tuesday</p>
+      <div class="innerCard">
         <img src="./Assets/noto-v1_sun-with-face.svg" alt="">
         <p id="nextDaydegree">30°</p>
         <p id="nextforeCast">Sunny</p>
       </div>
     </div>
     <div class="card hidden">
-      <p id="nextDay">Wednesday</p> 
-      <div class="innerCard"> 
+      <p id="nextDay6">Wednesday</p>
+      <div class="innerCard">
         <img src="./Assets/noto-v1_sun-with-face.svg" alt="">
         <p id="nextDaydegree">30°</p>
         <p id="nextforeCast">Sunny</p>
       </div>
     </div>
-    
+
   </section>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script src="./index.js"></script>
+
 </body>
+
 </html>
