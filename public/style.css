@@ -69,6 +69,11 @@ justify-content: center;
   padding-right: 20px;
   text-align: right;
   flex: 1;
+  
+}
+#weatherIcon {
+  background-color:  #8204ff;
+  border-radius: 50px;
 }
 .degrees,
 .weather{
