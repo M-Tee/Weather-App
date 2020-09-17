@@ -12,7 +12,6 @@ const year = document.querySelector('#year');
 year.textContent = today.getFullYear()
 
 
-
 const input = document.getElementById("input");
 input.addEventListener('keyup', async (event) => {
 	event.preventDefault();
@@ -20,7 +19,7 @@ input.addEventListener('keyup', async (event) => {
 		const typedString = document.getElementById("input").value;
 		// const apiKey = functions.config().openweather.key;
 
-		await axios(`https://api.openweathermap.org/data/2.5/weather?q=${typedString}&APPID=d72c9198e329c1ee1652b88a716f343f`, {
+		await axios(`https://api.openweathermap.org/data/2.5/weather?q=${typedString}&APPID=`, {
 			"method": "GET"
 		})
 			.then(response => {
@@ -36,7 +35,6 @@ input.addEventListener('keyup', async (event) => {
 				let icon = data.weather[0].icon
 				const img = document.querySelector('#weatherIcon');
 				img.setAttribute('src', `http://openweathermap.org/img/wn/${icon}@2x.png`)
-	
 
 				const temp = document.querySelector('.degrees')
 				temp.textContent = `${Math.round(data.main.temp - 273.15)}°`;
@@ -66,5 +64,4 @@ input.addEventListener('keyup', async (event) => {
 	
 	}
 })
-
 
