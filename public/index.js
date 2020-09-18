@@ -58,7 +58,7 @@ async function getDaysForecast(typedString){
 			console.log(data);
 
 			displayDaysForecast(data)
-			
+			getWeeksForecast(lat, lon)
 		})
 		.catch(err => {
 			console.log(err);
@@ -96,6 +96,52 @@ function displayDaysForecast(data) {
 	pressureRate.textContent = `${data.main.pressure} hPa`
 }
 
+async function getWeeksForecast(lat, lon) {
+	await axios(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=hourly,minutely,current&appid=d72c9198e329c1ee1652b88a716f343f`, {
+		"method": "GET"
+	})
+		.then(response => {
+			let data = response.data
+			console.log(data)
+			displayWeeksForecast(data)
+		})
+		.catch(err => {
+			console.log(err);
+		});
+}
+
+function displayWeeksForecast(data) {
+	data.daily.forEach(day => {
+		let icon = day.weather[0].icon
+
+		const section = document.querySelector('.section3');
+		const card = document.createElement('div')
+		card.setAttribute('class', 'card')
+		section.appendChild(card);
+
+		const p = document.createElement('p')
+		p.textContent = 'nextDay'
+		card.appendChild(p)
+
+		const innerCard = document.createElement('div')
+		innerCard.setAttribute('class', 'innerCard')
+		card.appendChild(innerCard)
+
+		// const innerCard = document.querySelector('.innerCard')
+		const img = document.createElement('img')
+		img.setAttribute('src', `http://openweathermap.org/img/wn/${icon}.png`)
+		innerCard.appendChild(img)
+
+		const temp = document.createElement('p')
+		temp.textContent = `${Math.round(day.temp.day - 273.15)}°`;
+		innerCard.appendChild(temp)
+
+		const weather = document.createElement('p')
+		weather.textContent = day.weather[0].main
+		innerCard.appendChild(weather)
+
+	});
+}
 
 // //for loop that checks the day and prints out the da
 // for(i = 0; i < 7; i++){
