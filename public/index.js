@@ -109,8 +109,13 @@ async function getWeeksForecast(lat, lon) {
 			console.log(err);
 		});
 }
+function clearPlaceholder(){
+	const placeholder = document.querySelector('.placeholder')
+	placeholder.style.display = "none";
+}
 
 function displayWeeksForecast(data) {
+	clearPlaceholder()
 	data.daily.forEach(day => {
 		let icon = day.weather[0].icon
 
@@ -120,7 +125,7 @@ function displayWeeksForecast(data) {
 		section.appendChild(card);
 
 		const p = document.createElement('p')
-		p.textContent = 'nextDay'
+		p.textContent = 'next'
 		card.appendChild(p)
 
 		const innerCard = document.createElement('div')
