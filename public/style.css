@@ -110,7 +110,8 @@ display: flex;
 .right span p:nth-child(2){
   padding-left: 10px;
 } */
-.section3 {
+.section3,
+.placeholder {
   display: flex;
   justify-content:center;
   text-align: center;
