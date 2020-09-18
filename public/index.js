@@ -48,7 +48,7 @@ input.addEventListener('keyup', async (event) => {
 })
 
 async function getDaysForecast(typedString){
-	await axios(`https://api.openweathermap.org/data/2.5/weather?q=${typedString}&APPID=d72c9198e329c1ee1652b88a716f343f`, {
+	await axios(`https://api.openweathermap.org/data/2.5/weather?q=${typedString}&APPID=`, {
 		"method": "GET"
 	})
 		.then(async response => {
@@ -97,7 +97,7 @@ function displayDaysForecast(data) {
 }
 
 async function getWeeksForecast(lat, lon) {
-	await axios(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=hourly,minutely,current&appid=d72c9198e329c1ee1652b88a716f343f`, {
+	await axios(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=hourly,minutely,current&appid=`, {
 		"method": "GET"
 	})
 		.then(response => {
@@ -109,6 +109,7 @@ async function getWeeksForecast(lat, lon) {
 			console.log(err);
 		});
 }
+
 function clearPlaceholder(){
 	const placeholder = document.querySelector('.placeholder')
 	placeholder.style.display = "none";
