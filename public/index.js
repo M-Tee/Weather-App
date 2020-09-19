@@ -40,14 +40,13 @@ year.textContent = today.getFullYear()
 const input = document.getElementById("input");
 
 input.addEventListener('keyup', async (event) => {
-	event.preventDefault();
 	if (event.keyCode === 13) {
 		const typedString = document.getElementById("input").value;
 		getDaysForecast(typedString)
 	}
 })
 
-async function getDaysForecast(typedString){
+async function getDaysForecast(typedString) {
 	await axios(`https://api.openweathermap.org/data/2.5/weather?q=${typedString}&APPID=`, {
 		"method": "GET"
 	})
@@ -101,23 +100,37 @@ async function getWeeksForecast(lat, lon) {
 		"method": "GET"
 	})
 		.then(response => {
-			let data = response.data
+			let data = response.data.daily
 			console.log(data)
-			displayWeeksForecast(data)
+			checkScreenWidth(data)
 		})
 		.catch(err => {
 			console.log(err);
 		});
 }
 
-function clearPlaceholder(){
+function clearPlaceholder() {
 	const placeholder = document.querySelector('.placeholder')
 	placeholder.style.display = "none";
 }
 
-function displayWeeksForecast(data) {
+function checkScreenWidth(data){
+	let arraylength = 0
+	if (window.screen.width < 768) {
+ arraylength = data.length - 5
+	} else{
+	 arraylength = data.length - 2	
+	}
+	
+
+
+	displayWeeksForecast(data, arraylength)
+}
+
+function displayWeeksForecast(data, arraylength) {
 	clearPlaceholder()
-	data.daily.forEach(day => {
+	for (var i = 0; i < arraylength; i++) {
+		let day = data[i];
 		let icon = day.weather[0].icon
 
 		const section = document.querySelector('.section3');
@@ -146,7 +159,37 @@ function displayWeeksForecast(data) {
 		weather.textContent = day.weather[0].main
 		innerCard.appendChild(weather)
 
-	});
+	}
+	// data.daily.forEach(day => {
+	// 	let icon = day.weather[0].icon
+
+	// 	const section = document.querySelector('.section3');
+	// 	const card = document.createElement('div')
+	// 	card.setAttribute('class', 'card')
+	// 	section.appendChild(card);
+
+	// 	const p = document.createElement('p')
+	// 	p.textContent = 'next'
+	// 	card.appendChild(p)
+
+	// 	const innerCard = document.createElement('div')
+	// 	innerCard.setAttribute('class', 'innerCard')
+	// 	card.appendChild(innerCard)
+
+	// 	// const innerCard = document.querySelector('.innerCard')
+	// 	const img = document.createElement('img')
+	// 	img.setAttribute('src', `http://openweathermap.org/img/wn/${icon}.png`)
+	// 	innerCard.appendChild(img)
+
+	// 	const temp = document.createElement('p')
+	// 	temp.textContent = `${Math.round(day.temp.day - 273.15)}°`;
+	// 	innerCard.appendChild(temp)
+
+	// 	const weather = document.createElement('p')
+	// 	weather.textContent = day.weather[0].main
+	// 	innerCard.appendChild(weather)
+
+	// });
 }
 
 // //for loop that checks the day and prints out the da
