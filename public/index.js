@@ -115,10 +115,15 @@ function clearPlaceholder() {
 }
 
 function checkScreenWidth(data){
-	let arraylength = data.length - 5
-	if (window.screen.width > 400) {
-		arraylength = data.length - 2
+	let arraylength = 0
+	if (window.screen.width < 768) {
+ arraylength = data.length - 5
+	} else{
+	 arraylength = data.length - 2	
 	}
+	
+
+
 	displayWeeksForecast(data, arraylength)
 }
 
