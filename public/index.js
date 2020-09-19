@@ -40,14 +40,13 @@ year.textContent = today.getFullYear()
 const input = document.getElementById("input");
 
 input.addEventListener('keyup', async (event) => {
-	event.preventDefault();
 	if (event.keyCode === 13) {
 		const typedString = document.getElementById("input").value;
 		getDaysForecast(typedString)
 	}
 })
 
-async function getDaysForecast(typedString){
+async function getDaysForecast(typedString) {
 	await axios(`https://api.openweathermap.org/data/2.5/weather?q=${typedString}&APPID=`, {
 		"method": "GET"
 	})
@@ -103,21 +102,29 @@ async function getWeeksForecast(lat, lon) {
 		.then(response => {
 			let data = response.data.daily
 			console.log(data)
-			displayWeeksForecast(data)
+			checkScreenWidth(data)
 		})
 		.catch(err => {
 			console.log(err);
 		});
 }
 
-function clearPlaceholder(){
+function clearPlaceholder() {
 	const placeholder = document.querySelector('.placeholder')
 	placeholder.style.display = "none";
 }
 
-function displayWeeksForecast(data) {
+function checkScreenWidth(data){
+	let arraylength = data.length - 5
+	if (window.screen.width > 400) {
+		arraylength = data.length - 2
+	}
+	displayWeeksForecast(data, arraylength)
+}
+
+function displayWeeksForecast(data, arraylength) {
 	clearPlaceholder()
-	for(var i = 0; i < data.length-2; i++){
+	for (var i = 0; i < arraylength; i++) {
 		let day = data[i];
 		let icon = day.weather[0].icon
 
@@ -146,7 +153,7 @@ function displayWeeksForecast(data) {
 		const weather = document.createElement('p')
 		weather.textContent = day.weather[0].main
 		innerCard.appendChild(weather)
-		
+
 	}
 	// data.daily.forEach(day => {
 	// 	let icon = day.weather[0].icon
