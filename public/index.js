@@ -1,6 +1,12 @@
-// const functions = require('firebase-functions');
-let today = new Date()
+if('serviceWorker' in navigator){
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js')
+    .then(reg => console.log(reg))
+    .catch(err => console.log(err))
+  })
+}
 
+let today = new Date()
 const displayDate = document.querySelector('#date');
 let date = today.getDate()
 displayDate.textContent = `${date}th`
