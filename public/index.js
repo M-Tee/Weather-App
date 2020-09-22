@@ -1,3 +1,4 @@
+
 if('serviceWorker' in navigator){
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('./sw.js')
@@ -5,6 +6,7 @@ if('serviceWorker' in navigator){
     .catch(err => console.log(err))
   })
 }
+
 
 (function displayDate(){
 	const displayDate = document.querySelector('#date');
@@ -136,6 +138,25 @@ function displayWeeksForecast(data, arraylength) {
 		const weather = document.createElement('p')
 		weather.textContent = day.weather[0].main
 		innerCard.appendChild(weather)
-
 	}
 }
+
+let defferedPrompt;
+const addbtn = document.querySelector('.btn');
+
+window.addEventListener('beforeinstallprompt', event => {
+	event.preventDefault();
+	defferedPrompt = event
+	addbtn.style.display = 'block';
+});
+
+addbtn.addEventListener('click', event => {
+	defferedPrompt,prompt();
+
+	defferedPrompt.userChoice.then(choice => {
+		if(choice.outcome === 'accepted'){
+			console.log('user accepted the prompt')
+		}
+		defferedPrompt = null;
+	})
+})
