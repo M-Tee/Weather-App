@@ -9,7 +9,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-  <link rel="manifest" href="/site.webmanifest">
+  <link rel="manifest" href="./site.webmanifest">
   <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#8204ff">
   <meta name="msapplication-TileColor" content="#8204ff">
   <meta name="theme-color" content="#8204ff">
@@ -29,22 +29,18 @@
 
     <div class="textGroup1">
       <img src="./Assets/locationMarker.svg" alt="" class="locationIcon">
-      <p class="city">Nairobi,
-      <p class="country">Kenya</p>
+      <p class="city">City,
+      <p class="country"> Country</p>
       </p>
     </div>
-    <div class="textGroup2">
-      <p id="date"> Day </p>
-      <p id="month">Month </p>
-      <p id="year">Year</p>
-    </div>
+    <p id="date"> Date </p>
   </section>
   <!-- Second Section  -->
   <section class="section2">
     <div class="left">
-      <img id="weatherIcon" src="" alt="">
-      <p class="degrees">15</p>
-      <p class="weather">Rainy</p>
+      <img id="weatherIcon" src="./Assets/noto-v1_sun-with-face.svg" alt="icon">
+      <p class="degrees">0°</p>
+      <p class="weather"> Forecast</p>
     </div>
     <div class="line"></div>
     <div class="right">
@@ -120,8 +116,10 @@
     </div>
 
   </section>
+  <button class="btn"></button>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script src="./index.js"></script>
+  <script src="./sw.js"></script>
 
 </body>
 
