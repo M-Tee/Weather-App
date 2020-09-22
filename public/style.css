@@ -13,11 +13,11 @@ body{
   height: 30%;
 }
 
-.bgImage{
+/* .bgImage{
   background-image: url('/Assets/architecture-blue-sky-buildings-dull-500.jpg');
   background-size: cover;
   background-repeat: no-repeat;
-}
+} */
 .search{
   display: flex;
   justify-content: center;
@@ -46,18 +46,12 @@ body{
   font-size: 30px;
   font-weight: bold;
 }
-.country,
-.textGroup2{
+.country{
   font-size: 18px;
   font-weight: 400;
 }
-.textGroup2{
-text-align: center;
-display: flex;
-justify-content: center;
-}
-.textGroup2 p{
-  padding: 5px;
+#date{
+  text-align: center;
 }
 
 .section2{
