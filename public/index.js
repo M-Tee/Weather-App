@@ -6,41 +6,16 @@ if('serviceWorker' in navigator){
   })
 }
 
-let today = new Date()
-const displayDate = document.querySelector('#date');
-let date = today.getDate()
-displayDate.textContent = `${date}th`
+(function displayDate(){
+	const displayDate = document.querySelector('#date');
 
-const month = document.querySelector('#month');
-month.textContent = today.toLocaleString('default', { month: 'long' })
+	let today = new Date()
+	let date = today.getDate()
+	let month = today.toLocaleString('default', { month: 'long' })
+	let year = today.getFullYear()
 
-const year = document.querySelector('#year');
-year.textContent = today.getFullYear()
-
-
-// const tommorow = new Date(date)
-// const displayNextday = document.querySelector('#nextDay');
-// displayNextday.textContent = tommorow.toLocaleString('default', { weekday: 'long' })
-
-// let days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-// let day = today.getDay()
-// const nextday2 = document.querySelector('#nextDay2');
-// nextday2.textContent = days[day+2]
-// for (let i = day; i>=6; i++){
-
-// }
-
-// date = tommorow.getDate()
-// const nextday2 = document.querySelector('#nextDay2');
-// let next = today.getDay()+1
-// nextday2.textContent = today.toLocaleString('default', { weekday: 'long' })
-// const next = new Date((tommorow.getDate()+2))
-// const nextday2 = document.querySelector('#nextDay2');
-// nextday2.textContent = next.toLocaleString('default', { weekday: 'long' })
-// nextday.textContent = today.getDate() + 1
-// const tommorow = today.getDay()+1
-// const tomorrow = new Date()
-// nextday.textcontent =  tomorrow.setDate(today.getDate() + 1)
+	displayDate.textContent = `${date}th ${month} ${year} `
+})()
 
 
 const input = document.getElementById("input");
@@ -127,19 +102,17 @@ function checkScreenWidth(data){
 	} else{
 	 arraylength = data.length - 2	
 	}
-	
-
-
 	displayWeeksForecast(data, arraylength)
 }
+
+const section = document.querySelector('.section3');
 
 function displayWeeksForecast(data, arraylength) {
 	clearPlaceholder()
 	for (var i = 0; i < arraylength; i++) {
 		let day = data[i];
 		let icon = day.weather[0].icon
-
-		const section = document.querySelector('.section3');
+	
 		const card = document.createElement('div')
 		card.setAttribute('class', 'card')
 		section.appendChild(card);
@@ -152,7 +125,6 @@ function displayWeeksForecast(data, arraylength) {
 		innerCard.setAttribute('class', 'innerCard')
 		card.appendChild(innerCard)
 
-		// const innerCard = document.querySelector('.innerCard')
 		const img = document.createElement('img')
 		img.setAttribute('src', `http://openweathermap.org/img/wn/${icon}.png`)
 		innerCard.appendChild(img)
@@ -166,44 +138,4 @@ function displayWeeksForecast(data, arraylength) {
 		innerCard.appendChild(weather)
 
 	}
-	// data.daily.forEach(day => {
-	// 	let icon = day.weather[0].icon
-
-	// 	const section = document.querySelector('.section3');
-	// 	const card = document.createElement('div')
-	// 	card.setAttribute('class', 'card')
-	// 	section.appendChild(card);
-
-	// 	const p = document.createElement('p')
-	// 	p.textContent = 'next'
-	// 	card.appendChild(p)
-
-	// 	const innerCard = document.createElement('div')
-	// 	innerCard.setAttribute('class', 'innerCard')
-	// 	card.appendChild(innerCard)
-
-	// 	// const innerCard = document.querySelector('.innerCard')
-	// 	const img = document.createElement('img')
-	// 	img.setAttribute('src', `http://openweathermap.org/img/wn/${icon}.png`)
-	// 	innerCard.appendChild(img)
-
-	// 	const temp = document.createElement('p')
-	// 	temp.textContent = `${Math.round(day.temp.day - 273.15)}°`;
-	// 	innerCard.appendChild(temp)
-
-	// 	const weather = document.createElement('p')
-	// 	weather.textContent = day.weather[0].main
-	// 	innerCard.appendChild(weather)
-
-	// });
 }
-
-// //for loop that checks the day and prints out the da
-// for(i = 0; i < 7; i++){
-// 	let day = today.getDay()
-// 	let days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-
-// 	for(j = day; j >= 6; j++){
-// 		console.log(days[day]);
-// 	}
-// }
