@@ -6,8 +6,6 @@ if('serviceWorker' in navigator){
     .catch(err => console.log(err))
   })
 }
-
-
 (function displayDate(){
 	const displayDate = document.querySelector('#date');
 
@@ -56,7 +54,7 @@ function displayDaysForecast(data) {
 
 	let icon = data.weather[0].icon
 	const img = document.querySelector('#weatherIcon');
-	img.setAttribute('src', `http://openweathermap.org/img/wn/${icon}@2x.png`)
+	img.setAttribute('src', `https://openweathermap.org/img/wn/${icon}@2x.png`)
 
 	const temp = document.querySelector('.degrees')
 	temp.textContent = `${Math.round(data.main.temp - 273.15)}°`;
@@ -128,7 +126,7 @@ function displayWeeksForecast(data, arraylength) {
 		card.appendChild(innerCard)
 
 		const img = document.createElement('img')
-		img.setAttribute('src', `http://openweathermap.org/img/wn/${icon}.png`)
+		img.setAttribute('src', `https://openweathermap.org/img/wn/${icon}.png`)
 		innerCard.appendChild(img)
 
 		const temp = document.createElement('p')
@@ -151,7 +149,7 @@ window.addEventListener('beforeinstallprompt', event => {
 });
 
 addbtn.addEventListener('click', event => {
-	defferedPrompt,prompt();
+	defferedPrompt.prompt();
 
 	defferedPrompt.userChoice.then(choice => {
 		if(choice.outcome === 'accepted'){
