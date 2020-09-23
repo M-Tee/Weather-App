@@ -1,4 +1,4 @@
-const cacheName = 'cache-v1';
+const cacheName = 'cache-v2';
 
 const cacheResources = [
   '/',
@@ -21,29 +21,29 @@ const cacheResources = [
 ];
 
 self.addEventListener("install", event => {
-  console.log('Service Worker install event');
+  console.log('Installing service worker...');
   event.waitUntil(
     caches.open(cacheName)
-    .then(cache => {
-      console.log("Service Worker: Caching files");
-      return cache.addAll(cacheResources );
-    })
-    .catch(err => console.log(err))
-    // .then(() => self.skipWaiting())
+      .then(cache => {
+        console.log("Service Worker caching files...");
+        return cache.addAll(cacheResources);
+      })
+      // .catch(err => console.log(err))
+    .then(() => self.skipWaiting())
   );
 });
 
+self.addEventListener('activate', event => {
+  console.log('Activating new service worker...');
 
+  const cacheWhitelist = [cacheName];
 
-self.addEventListener("activate", (e) => {
-  console.log('Service Worker: Activated');
-
-  e.waitUntil(
-    caches.keys().then((cacheNames) => {
-      return Promise.all(cacheNames.map((cache) => {
-          if(cache !== cacheName){
-            console.log("service Worker : clearing old caches");
-            return caches.delete(cache);
+  event.waitUntil(
+    caches.keys().then(cacheNames => {
+      return Promise.all(
+        cacheNames.map(cacheName => {
+          if (cacheWhitelist.indexOf(cacheName) === -1) {
+            return caches.delete(cacheName);
           }
         })
       );
@@ -51,15 +51,48 @@ self.addEventListener("activate", (e) => {
   );
 });
 
-
 self.addEventListener("fetch", event => {
-  console.log('Sw: fetching');
+  // console.log('Sw: fetching');
   event.respondWith(caches.match(event.request)
-  .then(cachedResponse => {
-    return cachedResponse || fetch(event.request)
-  }))
+    .then(cachedResponse => {
+      if(cachedResponse) {
+        console.log('Fetching from cache...');
+        return cachedResponse
+      }
+      console.log('Making a Network request..')
+      return fetch(event.request)
+      .then(response => {
+        return caches.open(cacheName).then(cache => {
+          cache.put(event.request.url, response.clone());
+          return response;
+        });
+      });
+    }).catch(err => console.log(err))
+  )
 })
 
+// self.addEventListener("fetch", event => {
+//   console.log('Sw: fetching');
+//   event.respondWith(caches.match(event.request)
+//   .then(cachedResponse => {
+//     return cachedResponse || fetch(event.request)
+//   }))
+// })
 
 
 
+//self distructing strategy
+
+// self.addEventListener('activate', event => {
+
+//   // Delete all Service Worker Caches
+//   caches.keys().then(cacheNames => {for (let name of cacheNames) {caches.delete(name);}});
+
+//   // Unregister all Service Workers
+//   self.registration.unregister()
+
+//     .then(() => self.clients.matchAll())
+
+//     .then((clients) => clients.forEach(client => client.navigate(client.url)))
+
+// });
