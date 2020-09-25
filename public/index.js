@@ -1,3 +1,7 @@
+const section = document.querySelector('.section3');
+const input = document.getElementById("input");
+const addbtn = document.querySelector('.btn');
+let defferedPrompt;
 
 if('serviceWorker' in navigator){
   window.addEventListener('load', () => {
@@ -6,7 +10,8 @@ if('serviceWorker' in navigator){
     .catch(err => console.log(err))
   })
 }
-(function displayDate(){
+
+(function displayDate() {
 	const displayDate = document.querySelector('#date');
 
 	let today = new Date()
@@ -17,11 +22,9 @@ if('serviceWorker' in navigator){
 	displayDate.textContent = `${date}th ${month} ${year} `
 })()
 
-
-const input = document.getElementById("input");
-
 input.addEventListener('keyup', async (event) => {
 	if (event.keyCode === 13) {
+
 		const typedString = document.getElementById("input").value;
 		getDaysForecast(typedString)
 	}
@@ -83,64 +86,28 @@ async function getWeeksForecast(lat, lon) {
 		.then(response => {
 			let data = response.data.daily
 			console.log(data)
-			checkScreenWidth(data)
+			displayWeeksForecast(data)
 		})
 		.catch(err => {
 			console.log(err);
 		});
 }
 
-function clearPlaceholder() {
-	const placeholder = document.querySelector('.placeholder')
-	placeholder.style.display = "none";
-}
+function displayWeeksForecast(data) {
+	const nextDayDegree = [document.querySelectorAll('#nextDaydegree')]
+	const nextDayIcon = [document.querySelectorAll('#nextWeatherIcon')]
+	const nextforeCast = [document.querySelectorAll('#nextforeCast')]
 
-function checkScreenWidth(data){
-	let arraylength = 0
-	if (window.screen.width < 768) {
- arraylength = data.length - 5
-	} else{
-	 arraylength = data.length - 2	
-	}
-	displayWeeksForecast(data, arraylength)
-}
+	let weeksTemp = nextDayDegree[0]
+	let weeksIcon = nextDayIcon[0]
+	let weeksForecast = nextforeCast[0]
 
-const section = document.querySelector('.section3');
-
-function displayWeeksForecast(data, arraylength) {
-	clearPlaceholder()
-	for (var i = 0; i < arraylength; i++) {
-		let day = data[i];
-		let icon = day.weather[0].icon
-	
-		const card = document.createElement('div')
-		card.setAttribute('class', 'card')
-		section.appendChild(card);
-
-		const p = document.createElement('p')
-		p.textContent = 'next'
-		card.appendChild(p)
-
-		const innerCard = document.createElement('div')
-		innerCard.setAttribute('class', 'innerCard')
-		card.appendChild(innerCard)
-
-		const img = document.createElement('img')
-		img.setAttribute('src', `https://openweathermap.org/img/wn/${icon}.png`)
-		innerCard.appendChild(img)
-
-		const temp = document.createElement('p')
-		temp.textContent = `${Math.round(day.temp.day - 273.15)}°`;
-		innerCard.appendChild(temp)
-
-		const weather = document.createElement('p')
-		weather.textContent = day.weather[0].main
-		innerCard.appendChild(weather)
+	for(i = 0; i < 7; i++) {
+	weeksTemp[i].innerText = `${Math.round(data[i].temp.day - 273.15)}°`;
+	weeksIcon[i].setAttribute('src', `https://openweathermap.org/img/wn/${data[i].weather[0].icon}.png`) 
+	weeksForecast[i].innerText = data[i].weather[0].main
 	}
 }
-
-let defferedPrompt;
-const addbtn = document.querySelector('.btn');
 
 window.addEventListener('beforeinstallprompt', event => {
 	event.preventDefault();
@@ -152,7 +119,7 @@ addbtn.addEventListener('click', event => {
 	defferedPrompt.prompt();
 
 	defferedPrompt.userChoice.then(choice => {
-		if(choice.outcome === 'accepted'){
+		if (choice.outcome === 'accepted') {
 			console.log('user accepted the prompt')
 		}
 		defferedPrompt = null;
