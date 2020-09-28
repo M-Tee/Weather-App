@@ -1,3 +1,4 @@
+const key = process.env.KEY
 const section = document.querySelector('.section3');
 const input = document.getElementById("input");
 const addbtn = document.querySelector('.btn');
@@ -25,7 +26,7 @@ input.addEventListener('keyup', async (event) => {
 })
 
 async function getDaysForecast(typedString) {
-	await axios(`https://api.openweathermap.org/data/2.5/weather?q=${typedString}&APPID=`, {
+	await axios(`https://api.openweathermap.org/data/2.5/weather?q=${typedString}&APPID=${key}`, {
 		"method": "GET"
 	})
 		.then(async response => {
@@ -68,7 +69,7 @@ function displayDaysForecast(data) {
 }
 
 async function getWeeksForecast(lat, lon) {
-	await axios(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=hourly,minutely,current&appid=`, {
+	await axios(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=hourly,minutely,current&appid=${key}`, {
 		"method": "GET"
 	})
 		.then(response => {
