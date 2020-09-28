@@ -14,6 +14,8 @@ let defferedPrompt;
 	displayDate.textContent = `${date}th ${month} ${year} `
 })()
 
+
+
 input.addEventListener('keyup', async (event) => {
 	if (event.keyCode === 13) {
 
@@ -52,7 +54,7 @@ function displayDaysForecast(data) {
 	const cloudRate = document.querySelector('#cloudRate');
 	const windSpeed = document.querySelector('#windSpeedRate');
 	const pressureRate = document.querySelector('#pressureRate');
-	
+
 	let icon = data.weather[0].icon
 
 	city.textContent = `${data.name},`
@@ -71,7 +73,7 @@ async function getWeeksForecast(lat, lon) {
 	})
 		.then(response => {
 			let data = response.data.daily
-			console.log(data)
+			data.splice(0, 1)
 			displayWeeksForecast(data)
 		})
 		.catch(err => {
@@ -79,21 +81,36 @@ async function getWeeksForecast(lat, lon) {
 		});
 }
 
+
 function displayWeeksForecast(data) {
 	const nextDayDegree = [document.querySelectorAll('#nextDaydegree')]
 	const nextDayIcon = [document.querySelectorAll('#nextWeatherIcon')]
 	const nextforeCast = [document.querySelectorAll('#nextforeCast')]
+	const nextDay = [document.querySelectorAll('#nextDay')]
+	const daysOfTheWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
 	let weeksTemp = nextDayDegree[0]
 	let weeksIcon = nextDayIcon[0]
 	let weeksForecast = nextforeCast[0]
+	let dayOftheWeek = nextDay[0]
 
 	for (i = 0; i < 7; i++) {
+	
+		let timeInUnix = data[i].dt
+		let dateFromUnix = new Date(timeInUnix * 1000)
+
+		dayOftheWeek[i].innerText = daysOfTheWeek[dateFromUnix.getDay()]
 		weeksTemp[i].innerText = `${Math.round(data[i].temp.day - 273.15)}°`;
 		weeksIcon[i].setAttribute('src', `https://openweathermap.org/img/wn/${data[i].weather[0].icon}.png`)
 		weeksForecast[i].innerText = data[i].weather[0].main
+
+		if(i === 0 ){
+			dayOftheWeek[i].innerText = 'Tommorrow';
+		}
 	}
 }
+
+
 
 window.addEventListener('beforeinstallprompt', event => {
 	event.preventDefault();
@@ -145,9 +162,9 @@ if ('serviceWorker' in navigator) {
 // 				{action: 'close', title: 'Dismiss',
 // 					icon: './favicon-32x32.png'},
 // 			]
-		
+
 // 			// TODO 5.1 - add a tag to the notification
-		
+
 // 		};
 
 //     reg.showNotification('Want to receive weather updates?', options);
