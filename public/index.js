@@ -1,15 +1,8 @@
+const key = process.env.KEY
 const section = document.querySelector('.section3');
 const input = document.getElementById("input");
 const addbtn = document.querySelector('.btn');
 let defferedPrompt;
-
-if('serviceWorker' in navigator){
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('./sw.js')
-    .then(reg => console.log(reg))
-    .catch(err => console.log(err))
-  })
-}
 
 (function displayDate() {
 	const displayDate = document.querySelector('#date');
@@ -22,6 +15,8 @@ if('serviceWorker' in navigator){
 	displayDate.textContent = `${date}th ${month} ${year} `
 })()
 
+
+
 input.addEventListener('keyup', async (event) => {
 	if (event.keyCode === 13) {
 
@@ -31,13 +26,15 @@ input.addEventListener('keyup', async (event) => {
 })
 
 async function getDaysForecast(typedString) {
-	await axios(`https://api.openweathermap.org/data/2.5/weather?q=${typedString}&APPID=`, {
+	await axios(`https://api.openweathermap.org/data/2.5/weather?q=${typedString}&APPID=${key}`, {
 		"method": "GET"
 	})
 		.then(async response => {
 			let data = response.data
+
 			const lat = data.coord.lat
 			const lon = data.coord.lon
+
 			console.log(data);
 
 			displayDaysForecast(data)
@@ -49,43 +46,35 @@ async function getDaysForecast(typedString) {
 }
 
 function displayDaysForecast(data) {
-	const city = document.querySelector('.city');
-	city.textContent = `${data.name},`
-
 	const country = document.querySelector('.country');
-	country.textContent = data.sys.country
+	const city = document.querySelector('.city');
+	const img = document.querySelector('#weatherIcon');
+	const temp = document.querySelector('.degrees')
+	const weather = document.querySelector('.weather');
+	const humidity = document.querySelector('#humidityRate')
+	const cloudRate = document.querySelector('#cloudRate');
+	const windSpeed = document.querySelector('#windSpeedRate');
+	const pressureRate = document.querySelector('#pressureRate');
 
 	let icon = data.weather[0].icon
-	const img = document.querySelector('#weatherIcon');
+
+	city.textContent = `${data.name},`
+	country.textContent = data.sys.country
 	img.setAttribute('src', `https://openweathermap.org/img/wn/${icon}@2x.png`)
-
-	const temp = document.querySelector('.degrees')
 	temp.textContent = `${Math.round(data.main.temp - 273.15)}°`;
-
-	const weather = document.querySelector('.weather');
 	weather.textContent = data.weather[0].description
-
-	const humidity = document.querySelector('#humidityRate')
 	humidity.textContent = `${data.main.humidity}%`
-
-	const cloudRate = document.querySelector('#cloudRate');
-	cloudRate.textContent = `${data.clouds.all}%`
-
-
-	const windSpeed = document.querySelector('#windSpeedRate');
 	windSpeed.textContent = `${data.wind.speed} m/s`
-
-	const pressureRate = document.querySelector('#pressureRate');
 	pressureRate.textContent = `${data.main.pressure} hPa`
 }
 
 async function getWeeksForecast(lat, lon) {
-	await axios(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=hourly,minutely,current&appid=`, {
+	await axios(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=hourly,minutely,current&appid=${key}`, {
 		"method": "GET"
 	})
 		.then(response => {
 			let data = response.data.daily
-			console.log(data)
+			data.splice(0, 1)
 			displayWeeksForecast(data)
 		})
 		.catch(err => {
@@ -93,21 +82,36 @@ async function getWeeksForecast(lat, lon) {
 		});
 }
 
+
 function displayWeeksForecast(data) {
 	const nextDayDegree = [document.querySelectorAll('#nextDaydegree')]
 	const nextDayIcon = [document.querySelectorAll('#nextWeatherIcon')]
 	const nextforeCast = [document.querySelectorAll('#nextforeCast')]
+	const nextDay = [document.querySelectorAll('#nextDay')]
+	const daysOfTheWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
 	let weeksTemp = nextDayDegree[0]
 	let weeksIcon = nextDayIcon[0]
 	let weeksForecast = nextforeCast[0]
+	let dayOftheWeek = nextDay[0]
 
-	for(i = 0; i < 7; i++) {
-	weeksTemp[i].innerText = `${Math.round(data[i].temp.day - 273.15)}°`;
-	weeksIcon[i].setAttribute('src', `https://openweathermap.org/img/wn/${data[i].weather[0].icon}.png`) 
-	weeksForecast[i].innerText = data[i].weather[0].main
+	for (i = 0; i < 7; i++) {
+	
+		let timeInUnix = data[i].dt
+		let dateFromUnix = new Date(timeInUnix * 1000)
+
+		dayOftheWeek[i].innerText = daysOfTheWeek[dateFromUnix.getDay()]
+		weeksTemp[i].innerText = `${Math.round(data[i].temp.day - 273.15)}°`;
+		weeksIcon[i].setAttribute('src', `https://openweathermap.org/img/wn/${data[i].weather[0].icon}.png`)
+		weeksForecast[i].innerText = data[i].weather[0].main
+
+		if(i === 0 ){
+			dayOftheWeek[i].innerText = 'Tommorrow';
+		}
 	}
 }
+
+
 
 window.addEventListener('beforeinstallprompt', event => {
 	event.preventDefault();
@@ -125,3 +129,45 @@ addbtn.addEventListener('click', event => {
 		defferedPrompt = null;
 	})
 })
+
+
+if ('serviceWorker' in navigator) {
+	window.addEventListener('load', () => {
+		navigator.serviceWorker.register('./sw.js')
+			.then(reg => console.log(reg))
+			.catch(err => console.log(err))
+	})
+}
+
+// if (!('Notification' in window)) {
+//   console.log('This browser does not support notifications!');
+// }
+// Notification.requestPermission(status => {
+//   console.log('Notification permission status:', status);
+// });
+
+// if (Notification.permission == 'granted') {
+//   navigator.serviceWorker.getRegistration().then(reg => {
+
+//     const options = {
+// 			body: 'Subscribe to get daily weather updates!',
+// 			icon: './favicon-32x32.png',
+// 			vibrate: [100, 50, 100],
+// 			data: {
+// 				dateOfArrival: Date.now(),
+// 				primaryKey: 1
+// 			},
+// 			actions: [
+// 				{action: 'explore', title: 'Subscribe',
+// 					icon: './favicon-32x32.png'},
+// 				{action: 'close', title: 'Dismiss',
+// 					icon: './favicon-32x32.png'},
+// 			]
+
+// 			// TODO 5.1 - add a tag to the notification
+
+// 		};
+
+//     reg.showNotification('Want to receive weather updates?', options);
+//   });
+// }

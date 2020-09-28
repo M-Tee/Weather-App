@@ -14,7 +14,6 @@ const cacheResources = [
   'favicon-16x16.png',
   'favicon-32x32.png',
   'index.html',
-  'index.js',
   'mstile-150x150.png',
   'safari-pinned-tab.svg',
   'site.webmanifest',
@@ -53,46 +52,37 @@ self.addEventListener('activate', event => {
 
 self.addEventListener("fetch", event => {
   // console.log('Sw: fetching');
-  event.respondWith(caches.match(event.request)
-    .then(cachedResponse => {
-      if(cachedResponse) {
-        console.log('Fetching from cache...');
-        return cachedResponse
-      }
-      console.log('Making a Network request..')
-      return fetch(event.request)
-      .then(response => {
-        return caches.open(cacheName).then(cache => {
-          cache.put(event.request.url, response.clone());
-          return response;
-        });
-      });
-    }).catch(err => console.log(err))
-  )
+  // event.respondWith(
+    
+  //   caches.match(event.request)
+  //   .then(cachedResponse => {
+  //     if(cachedResponse) {
+  //       console.log('Fetching from cache...');
+  //       return cachedResponse
+  //     }
+  //     console.log('Making a Network request..')
+  //     return fetch(event.request)
+
+  //     .then(response => {
+  //       return caches.open(cacheName).then(cache => {
+  //         cache.put(event.request.url, response.clone());
+  //         return response;
+  //       });
+  //     });
+  //   }).catch(err => console.log(err))
+  // )
 })
 
-// self.addEventListener("fetch", event => {
-//   console.log('Sw: fetching');
-//   event.respondWith(caches.match(event.request)
-//   .then(cachedResponse => {
-//     return cachedResponse || fetch(event.request)
-//   }))
-// })
+self.addEventListener('notificationclose', event => {
+  const notification = event.notification;
+  const primaryKey = notification.data.primaryKey;
 
+  console.log('Closed notification: ' + primaryKey);
+});
 
+self.addEventListener('notificationclick', event => {
 
-//self distructing strategy
+  // TODO 2.8 - change the code to open a custom page
 
-// self.addEventListener('activate', event => {
-
-//   // Delete all Service Worker Caches
-//   caches.keys().then(cacheNames => {for (let name of cacheNames) {caches.delete(name);}});
-
-//   // Unregister all Service Workers
-//   self.registration.unregister()
-
-//     .then(() => self.clients.matchAll())
-
-//     .then((clients) => clients.forEach(client => client.navigate(client.url)))
-
-// });
+  clients.openWindow('https://google.com');
+});
