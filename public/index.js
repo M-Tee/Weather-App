@@ -1,7 +1,10 @@
-const key = process.env.KEY
+// const key = process.env.KEY
 const section = document.querySelector('.section3');
 const input = document.getElementById("input");
 const addbtn = document.querySelector('.btn');
+const city = document.querySelector('.city');
+const country = document.querySelector('.country');
+const marker = document.querySelector('.locationIcon');
 let defferedPrompt;
 
 (function displayDate() {
@@ -26,28 +29,25 @@ input.addEventListener('keyup', async (event) => {
 })
 
 async function getDaysForecast(typedString) {
-	await axios(`https://api.openweathermap.org/data/2.5/weather?q=${typedString}&APPID=${key}`, {
+	await axios(`https://api.openweathermap.org/data/2.5/weather?q=${typedString}&APPID=`, {
 		"method": "GET"
 	})
-		.then(async response => {
+		.then(response => {
 			let data = response.data
-
 			const lat = data.coord.lat
 			const lon = data.coord.lon
 
-			console.log(data);
-
 			displayDaysForecast(data)
 			getWeeksForecast(lat, lon)
+			console.log(data);
 		})
 		.catch(err => {
+			displayErrorMessage() 
 			console.log(err);
 		});
 }
 
 function displayDaysForecast(data) {
-	const country = document.querySelector('.country');
-	const city = document.querySelector('.city');
 	const img = document.querySelector('#weatherIcon');
 	const temp = document.querySelector('.degrees')
 	const weather = document.querySelector('.weather');
@@ -58,6 +58,7 @@ function displayDaysForecast(data) {
 
 	let icon = data.weather[0].icon
 
+	marker.style.display = "unset";
 	city.textContent = `${data.name},`
 	country.textContent = data.sys.country
 	img.setAttribute('src', `https://openweathermap.org/img/wn/${icon}@2x.png`)
@@ -69,7 +70,7 @@ function displayDaysForecast(data) {
 }
 
 async function getWeeksForecast(lat, lon) {
-	await axios(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=hourly,minutely,current&appid=${key}`, {
+	await axios(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=hourly,minutely,current&appid=`, {
 		"method": "GET"
 	})
 		.then(response => {
@@ -96,7 +97,7 @@ function displayWeeksForecast(data) {
 	let dayOftheWeek = nextDay[0]
 
 	for (i = 0; i < 7; i++) {
-	
+
 		let timeInUnix = data[i].dt
 		let dateFromUnix = new Date(timeInUnix * 1000)
 
@@ -105,13 +106,16 @@ function displayWeeksForecast(data) {
 		weeksIcon[i].setAttribute('src', `https://openweathermap.org/img/wn/${data[i].weather[0].icon}.png`)
 		weeksForecast[i].innerText = data[i].weather[0].main
 
-		if(i === 0 ){
+		if (i === 0) {
 			dayOftheWeek[i].innerText = 'Tommorrow';
 		}
 	}
 }
-
-
+function displayErrorMessage() {
+	marker.style.display = "none";
+	city.innerText = "404,";
+	country.innerText = "City not found";
+}
 
 window.addEventListener('beforeinstallprompt', event => {
 	event.preventDefault();
