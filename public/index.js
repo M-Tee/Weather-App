@@ -5,6 +5,7 @@ const addbtn = document.querySelector('.btn');
 const city = document.querySelector('.city');
 const country = document.querySelector('.country');
 const marker = document.querySelector('.locationIcon');
+const btn = document.querySelector('.searchBtn');
 let defferedPrompt;
 
 (function displayDate() {
@@ -22,11 +23,17 @@ let defferedPrompt;
 
 input.addEventListener('keyup', async (event) => {
 	if (event.keyCode === 13) {
+		saveUserInput();
+	};
+});
 
-		const typedString = document.getElementById("input").value;
-		getDaysForecast(typedString)
-	}
-})
+function saveUserInput() {
+	let typedString = document.getElementById("input").value;
+	getDaysForecast(typedString)
+	typedString.textContent = ""
+}
+
+btn.addEventListener('click', saveUserInput());
 
 async function getDaysForecast(typedString) {
 	await axios(`https://api.openweathermap.org/data/2.5/weather?q=${typedString}&APPID=`, {
@@ -42,7 +49,7 @@ async function getDaysForecast(typedString) {
 			console.log(data);
 		})
 		.catch(err => {
-			displayErrorMessage() 
+			displayErrorMessage()
 			console.log(err);
 		});
 }
@@ -80,6 +87,7 @@ async function getWeeksForecast(lat, lon) {
 		})
 		.catch(err => {
 			console.log(err);
+
 		});
 }
 
