@@ -13,10 +13,11 @@ let defferedPrompt;
 
 	let today = new Date()
 	let date = today.getDate()
+	let weekDay = today.toLocaleString('default', { weekday: 'long' });
 	let month = today.toLocaleString('default', { month: 'long' })
 	let year = today.getFullYear()
 
-	displayDate.textContent = `${date}th ${month} ${year} `
+	displayDate.textContent = `Today: ${weekDay} ${date}th ${month} ${year} `
 })()
 
 
