@@ -29,9 +29,8 @@ input.addEventListener('keyup', async (event) => {
 });
 
 function saveUserInput() {
-	let typedString = document.getElementById("input").value;
+	let typedString = document.getElementById("input").value.trim();
 	getDaysForecast(typedString)
-	typedString.textContent = ""
 }
 
 btn.addEventListener('click', saveUserInput());
